@@ -11,14 +11,14 @@
       "id": 2,
       "title": "Peace on Earth",
       "description": "No big deal.",
-      "status": "Unstarted",
+      "status": "Completed",
       "timer": 132
     },
     {
       "id": 3,
       "title": "Create Facebook for dogs",
       "description": "The hottest new social network",
-      "status": "Completed",
+      "status": "Unstarted",
       "timer": 332
     },
     {
@@ -34,6 +34,12 @@
       "description": "Je m'apple Guillaume",
       "status": "In Progress",
       "timer": 0
+    },
+    {
+      "title": "New Task",
+      "description": "some description",
+      "status": "In Progress",
+      "id": 6
     }
   ]
 }

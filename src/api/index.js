@@ -16,3 +16,7 @@ export function fetchTasksRequest() {
 export function createTaskRequest(params) {
   return client.post('/tasks', params);
 }
+
+export function editTaskRequest(id, params) {
+  return client.put(`/tasks/${id}`, params);
+}

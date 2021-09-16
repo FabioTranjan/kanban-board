@@ -12,6 +12,13 @@ export default function tasks(state = { tasks: [] }, action) {
   } else if (action.type === 'CREATE_TASK_SUCEEDED') {
     const newTasks = [ ...state.tasks, action.payload.task ];
     return { tasks: newTasks };
+  } else if (action.type === 'EDIT_TASK_SUCEEDED') {
+    const { id } = action.payload.task;
+    const newTasks = [...state.tasks];
+    const task = newTasks.find(task => task.id === id);
+    const taskIndex = newTasks.indexOf(task);
+    newTasks[taskIndex] = action.payload.task;
+    return { tasks: newTasks };
   }
   return state;
 }

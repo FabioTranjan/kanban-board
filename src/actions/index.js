@@ -1,4 +1,4 @@
-import { createTaskRequest, fetchTasksRequest } from '../api';
+import { createTaskRequest, fetchTasksRequest, editTaskRequest } from '../api';
 
 export function createTaskSuceeded(task) {
   return ({
@@ -16,11 +16,24 @@ export function createTask({ title, description, status = 'Unstarted' }) {
   }
 }
 
-export function changeStatus({ id, status }) {
+export function editTaskSuceeded(task) {
   return ({
-    type: 'EDIT_TASK',
-    payload: { id, status }
-  });
+    type: 'EDIT_TASK_SUCEEDED',
+    payload: { task }
+  })
+}
+
+export function editTask({ id, status }) {
+  return (dispatch, getState) => {
+    console.log(getState());
+    const task = getState().tasks.find(task => task.id === id);
+    const updatedTask = { ...task, status };
+
+    editTaskRequest(id, updatedTask)
+      .then(resp => {
+        dispatch(editTaskSuceeded(resp.data));
+      })
+  }
 }
 
 export function fetchTasksSuceeded(tasks) {
