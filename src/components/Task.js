@@ -1,7 +1,12 @@
 import React from 'react';
 import { TASK_STATUSES } from '../constants';
 
+
 const Task = props => {
+  const changeStatus = (e) => {
+    props.onChangeStatus(props.task.id, e.target.value)
+  };
+
   return (
     <div className="task">
       <div className="task-header">
@@ -11,7 +16,7 @@ const Task = props => {
             name="states"
             id="states"
             value={props.task.status}
-            onChange={(e) => props.onChangeStatus(props.task.id, e.target.value)}
+            onChange={changeStatus}
           >
             {TASK_STATUSES.map(status => (
               <option key={status} value={status}>{status}</option>
