@@ -9,3 +9,10 @@ export function createTask({ title, description }) {
     payload: { id: uniqueId(), title, description, status: 'Unstarted' }
   });
 }
+
+export function changeStatus({ id, status }) {
+  return ({
+    type: 'EDIT_TASK',
+    payload: { id, status }
+  });
+}

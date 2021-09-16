@@ -18,6 +18,12 @@ const mockTasks = [
 export default function tasks(state = { tasks: mockTasks }, action) {
   if (action.type === 'CREATE_TASK') {
     return { tasks: state.tasks.concat(action.payload) };
+  } else if (action.type === 'EDIT_TASK') {
+    const { id, status } = action.payload;
+    const newTasks = [...state.tasks];
+    const newTask = newTasks.find(task => task.id === id);
+    newTask.status = status;
+    return { tasks: newTasks };
   }
   return state;
 }
