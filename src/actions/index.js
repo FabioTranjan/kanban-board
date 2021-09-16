@@ -1,4 +1,4 @@
-import axios from "axios";
+import { fetchTasksRequest } from '../api';
 
 let _id = 1;
 export function uniqueId() {
@@ -29,7 +29,7 @@ export function fetchTasksSucceeded(tasks) {
 
 export function fetchTasks() {
   return dispatch => {
-    axios.get('http://localhost:3001/tasks')
+    fetchTasksRequest() 
       .then(resp => {
         dispatch(fetchTasksSucceeded(resp.data));
       })
