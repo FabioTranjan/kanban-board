@@ -8,7 +8,10 @@ export default function tasks(state = { tasks: [] }, action) {
     newTask.status = status;
     return { tasks: newTasks };
   } else if (action.type === 'FETCH_TASKS_SUCEEDED') {
-    return { tasks: action.payload.tasks};
+    return { tasks: action.payload.tasks };
+  } else if (action.type === 'CREATE_TASK_SUCEEDED') {
+    const newTasks = [ ...state.tasks, action.payload.task ];
+    return { tasks: newTasks };
   }
   return state;
 }
