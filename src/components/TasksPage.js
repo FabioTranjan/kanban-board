@@ -57,16 +57,16 @@ class TasksPage extends Component {
           <button className="button button-default" onClick={this.toggleForm}>
             + New Task
           </button>
+          {this.state.showNewCardForm && (
+            <form className="task-list-form" onSubmit={this.onCreateTask}>
+              <input className="full-width-input" onChange={this.onTitleChange} value={this.state.title} type="text" placeholder="title" />
+              <input className="full-width-input" onChange={this.onDescriptionChange} value={this.state.description} type="text" placeholder="description" />
+              <button className="button" type="submit">
+                Save
+              </button>
+            </form>
+          )}
         </div>
-        {this.state.showNewCardForm && (
-          <form className="task-list-form" onSubmit={this.onCreateTask}>
-            <input className="full-width-input" onChange={this.onTitleChange} value={this.state.title} type="text" placeholder="title" />
-            <input className="full-width-input" onChange={this.onDescriptionChange} value={this.state.description} type="text" placeholder="description" />
-            <button className="button" type="submit">
-              Save
-            </button>
-          </form>
-        )}
         <div className="tasks-lists">
           {this.renderTaskLists()}
         </div>
