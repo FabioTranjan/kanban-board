@@ -36,6 +36,13 @@ export function editTask({ id, status }) {
   }
 }
 
+export function fetchTasksFailed(error) {
+  return {
+    type: 'FETCH_TASKS_FAILED',
+    payload: { error }
+  }
+}
+
 export function fetchTasksSuceeded(tasks) {
   return ({
     type: 'FETCH_TASKS_SUCEEDED',
@@ -49,14 +56,18 @@ export function fetchTasks() {
 
     fetchTasksRequest() 
       .then(resp => {
+        // Set a timeout to show the loading indicator
         setTimeout(() => {
           dispatch(fetchTasksSuceeded(resp.data));
         }, 1000)
       })
+      .catch(err => {
+        dispatch(fetchTasksFailed(err.message));
+      })
   }
 }
 
-function fetchTasksStarted() {
+export function fetchTasksStarted() {
   return {
     type: 'FETCH_TASKS_STARTED',
   };

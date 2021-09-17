@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createTask, editTask, fetchTasks } from './actions';
 import TasksPage from './components/TasksPage';
+import FlashMessage from './components/FlashMessage';
 
 class App extends Component {
   componentDidMount() {
@@ -18,21 +19,24 @@ class App extends Component {
 
   render() {
     return (
-      <div className="main-content">
-        <TasksPage
-          tasks={this.props.tasks}
-          onCreateTask={this.onCreateTask}
-          onChangeStatus={this.onChangeStatus}
-          isLoading={this.props.isLoading}
-        />
+      <div className="container">
+        {this.props.error && <FlashMessage message={this.props.error} />}
+        <div className="main-content">
+          <TasksPage
+            tasks={this.props.tasks}
+            onCreateTask={this.onCreateTask}
+            onChangeStatus={this.onChangeStatus}
+            isLoading={this.props.isLoading}
+          />
+        </div>
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  const { tasks, isLoading } = state.tasks;
-  return { tasks, isLoading };
+  const { tasks, isLoading, error } = state.tasks;
+  return { tasks, isLoading, error };
 }
 
 export default connect(mapStateToProps)(App);

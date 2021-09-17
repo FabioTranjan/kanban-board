@@ -1,6 +1,7 @@
 const initialState = {
   tasks: [],
   isLoading: false,
+  error: null,
 }
 
 export default function tasksReducer(state = initialState, action) {
@@ -10,6 +11,9 @@ export default function tasksReducer(state = initialState, action) {
     }
     case 'FETCH_TASKS_SUCEEDED': {
       return { ...state, isLoading: false, tasks: action.payload.tasks };
+    }
+    case 'FETCH_TASKS_FAILED': {
+      return { ...state, isLoading: false, error: action.payload.error };
     }
     case 'CREATE_TASK_SUCEEDED': {
       const newTasks = [ ...state.tasks, action.payload.task ];
