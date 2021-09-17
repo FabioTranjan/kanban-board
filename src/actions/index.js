@@ -45,9 +45,19 @@ export function fetchTasksSuceeded(tasks) {
 
 export function fetchTasks() {
   return dispatch => {
+    dispatch(fetchTasksStarted());
+
     fetchTasksRequest() 
       .then(resp => {
-        dispatch(fetchTasksSuceeded(resp.data));
+        setTimeout(() => {
+          dispatch(fetchTasksSuceeded(resp.data));
+        }, 1000)
       })
   }
+}
+
+function fetchTasksStarted() {
+  return {
+    type: 'FETCH_TASKS_STARTED',
+  };
 }

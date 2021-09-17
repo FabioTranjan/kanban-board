@@ -18,7 +18,7 @@
       "id": 3,
       "title": "Create Facebook for dogs",
       "description": "The hottest new social network",
-      "status": "Unstarted",
+      "status": "In Progress",
       "timer": 332
     },
     {
@@ -38,7 +38,7 @@
     {
       "title": "New Task",
       "description": "some description",
-      "status": "In Progress",
+      "status": "Completed",
       "id": 6
     }
   ]
