@@ -32,7 +32,7 @@
       "id": 5,
       "title": "Learn French",
       "description": "Je m'apple Guillaume",
-      "status": "In Progress",
+      "status": "Unstarted",
       "timer": 0
     },
     {
@@ -40,6 +40,12 @@
       "description": "some description",
       "status": "Completed",
       "id": 6
+    },
+    {
+      "title": "Another Task",
+      "description": "description here",
+      "status": "Unstarted",
+      "id": 7
     }
   ]
 }

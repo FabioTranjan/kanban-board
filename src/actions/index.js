@@ -26,7 +26,7 @@ export function editTaskSuceeded(task) {
 export function editTask({ id, status }) {
   return (dispatch, getState) => {
     console.log(getState());
-    const task = getState().tasks.find(task => task.id === id);
+    const task = getState().tasks.tasks.find(task => task.id === id);
     const updatedTask = { ...task, status };
 
     editTaskRequest(id, updatedTask)
