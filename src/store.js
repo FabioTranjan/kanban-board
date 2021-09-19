@@ -3,6 +3,7 @@ import tasksReducer from './reducers';
 import thunk from 'redux-thunk';
 import logger from './middleware/logger';
 import analytics from './middleware/analytics';
+import apiMiddleware from './middleware/api';
 
 const rootReducer = (state = {}, action) => {
   return {
@@ -12,6 +13,6 @@ const rootReducer = (state = {}, action) => {
 
 export default createStore(
   rootReducer, 
-  applyMiddleware(thunk, logger, analytics)
+  applyMiddleware(thunk, apiMiddleware, logger, analytics)
   // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

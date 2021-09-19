@@ -10,7 +10,7 @@ export default function tasksReducer(state = initialState, action) {
       return { ...state, isLoading: true };
     }
     case 'FETCH_TASKS_SUCEEDED': {
-      return { ...state, isLoading: false, tasks: action.payload.tasks };
+      return { ...state, isLoading: false, tasks: action.payload };
     }
     case 'FETCH_TASKS_FAILED': {
       return { ...state, isLoading: false, error: action.payload.error };

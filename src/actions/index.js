@@ -1,4 +1,18 @@
-import { createTaskRequest, fetchTasksRequest, editTaskRequest } from '../api';
+import { createTaskRequest, editTaskRequest } from '../api';
+import { CALL_API } from '../middleware/api';
+
+export const FETCH_TASKS_STARTED = 'FETCH_TASKS_STARTED';
+export const FETCH_TASKS_SUCEEDED = 'FETCH_TASKS_SUCEEDED';
+export const FETCH_TASKS_FAILED = 'FETCH_TASKS_FAILED';
+
+export function fetchTasks() {
+  return {
+    [CALL_API]: {
+      types: [FETCH_TASKS_STARTED, FETCH_TASKS_SUCEEDED, FETCH_TASKS_FAILED],
+      endpoint: '/tasks',
+    }
+  };
+}
 
 export function createTaskSuceeded(task) {
   return ({
@@ -42,41 +56,4 @@ export function editTask({ id, status }) {
         dispatch(editTaskSuceeded(resp.data));
       })
   }
-}
-
-export function fetchTasksFailed(error) {
-  return {
-    type: 'FETCH_TASKS_FAILED',
-    payload: { error }
-  }
-}
-
-export function fetchTasksSuceeded(tasks) {
-  return ({
-    type: 'FETCH_TASKS_SUCEEDED',
-    payload: { tasks }
-  })
-}
-
-export function fetchTasks() {
-  return dispatch => {
-    dispatch(fetchTasksStarted());
-
-    fetchTasksRequest() 
-      .then(resp => {
-        // Set a timeout to show the loading indicator
-        setTimeout(() => {
-          dispatch(fetchTasksSuceeded(resp.data));
-        }, 1000)
-      })
-      .catch(err => {
-        dispatch(fetchTasksFailed(err.message));
-      })
-  }
-}
-
-export function fetchTasksStarted() {
-  return {
-    type: 'FETCH_TASKS_STARTED',
-  };
 }

@@ -42,16 +42,10 @@
       "id": 6
     },
     {
-      "title": "Another Task",
-      "description": "description here",
-      "status": "Unstarted",
+      "title": "New Task",
+      "description": "some description here",
+      "status": "Completed",
       "id": 7
-    },
-    {
-      "title": "One More Task",
-      "description": "more description here",
-      "status": "In Progress",
-      "id": 8
     }
   ]
 }
