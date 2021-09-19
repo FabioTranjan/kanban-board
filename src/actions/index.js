@@ -3,8 +3,16 @@ import { createTaskRequest, fetchTasksRequest, editTaskRequest } from '../api';
 export function createTaskSuceeded(task) {
   return ({
     type: 'CREATE_TASK_SUCEEDED',
-    payload: { task }
-  })
+    payload: { task },
+    meta: {
+      analytics: {
+        event: 'create_task',
+        data: {
+          id: task.id
+        }
+      }
+    }
+  });
 }
 
 export function createTask({ title, description, status = 'Unstarted' }) {
