@@ -1,16 +1,6 @@
-import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:3001'
+import { makeCall } from '../api';
 
 export const CALL_API = 'CALL_API';
-
-function makeCall(endpoint) {
-  const url = `${API_BASE_URL}${endpoint}`;
-
-  return axios.get(url)
-              .then(resp => { return resp; })
-              .catch(err => { return err; })
-}
 
 const apiMiddleware = store => next => action => {
   const callApi = action[CALL_API];
@@ -18,13 +8,19 @@ const apiMiddleware = store => next => action => {
     return next(action);
   }
 
-  const { types, endpoint } = callApi;
+  const { types, endpoint, method, params } = callApi;
 
   const [startType, successType, failureType] = types;
 
   next({ type: startType });
 
-  return makeCall(endpoint).then(
+  let body = { ...params };
+  if (method === 'PUT') {
+    const task = store.getState().tasks.tasks.find(task => task.id === params.id);
+    body = { ...task, ...body };
+  }
+
+  return makeCall(endpoint, method, body).then(
     response =>
       next({
         type: successType,

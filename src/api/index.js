@@ -9,14 +9,14 @@ const client = axios.create({
   }
 });
 
-export function fetchTasksRequest() {
-  return client.get('/tasks');
-}
+export async function makeCall(endpoint, method, body = {}) {
+  const url = `${API_BASE_URL}${endpoint}`;
 
-export function createTaskRequest(params) {
-  return client.post('/tasks', params);
-}
+  const params = {
+    method,
+    url,
+    data: body
+  }
 
-export function editTaskRequest(id, params) {
-  return client.put(`/tasks/${id}`, params);
+  return client(params).then(resp => resp).catch(err => err);
 }

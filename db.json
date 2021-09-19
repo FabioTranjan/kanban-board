@@ -34,18 +34,6 @@
       "description": "Je m'apple Guillaume",
       "status": "Unstarted",
       "timer": 0
-    },
-    {
-      "title": "New Task",
-      "description": "some description",
-      "status": "Completed",
-      "id": 6
-    },
-    {
-      "title": "New Task",
-      "description": "some description here",
-      "status": "Completed",
-      "id": 7
     }
   ]
 }
