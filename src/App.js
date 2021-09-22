@@ -41,11 +41,9 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  const { isLoading, error, searchTerm } = state.tasks;
+  const { isLoading, error } = state.tasks;
 
-  const tasks = getFilteredTasks(state.tasks.tasks, searchTerm);
-
-  return { tasks, isLoading, error };
+  return { tasks: getFilteredTasks(state), isLoading, error };
 }
 
 export default connect(mapStateToProps)(App);
