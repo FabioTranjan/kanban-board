@@ -8,8 +8,7 @@ class TasksPage extends Component {
     this.state = {
       showNewCardForm: false,
       title: '',
-      description: '',
-      searchForm: undefined,
+      description: ''
     };
   }
 
@@ -26,7 +25,6 @@ class TasksPage extends Component {
       showNewCardForm: false,
       title: '',
       description: '',
-      searchForm: undefined,
     });
   }
 
@@ -50,18 +48,14 @@ class TasksPage extends Component {
   renderTaskLists() {
     const { tasks } = this.props;
 
-    const filteredTasks = tasks.filter(task => {
-      return task.title.match(new RegExp(this.state.searchForm, 'i'))
-    });
-
     return TASK_STATUSES.map(status => {
-      const statusTasks = filteredTasks.filter(task => task.status === status);
+      const statusTasks = tasks.filter(task => task.status === status);
       return <TaskList key={status} status={status} tasks={statusTasks} onChangeStatus={this.onChangeStatus} />
     });
   }
 
   onSearch = e => {
-    this.setState({ searchForm: e.target.value });
+    this.props.onSearch(e.target.value);
   }
 
   render() {

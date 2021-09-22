@@ -25,8 +25,7 @@ export function editTaskSuceeded(task) {
 
 export function editTask({ id, status }) {
   return (dispatch, getState) => {
-    console.log(getState());
-    const task = getState().tasks.find(task => task.id === id);
+    const task = getState().tasks.tasks.find(task => task.id === id);
     const updatedTask = { ...task, status };
 
     editTaskRequest(id, updatedTask)
@@ -71,4 +70,8 @@ export function fetchTasksStarted() {
   return {
     type: 'FETCH_TASKS_STARTED',
   };
+}
+
+export function filterTasks(searchTerm) {
+  return { type: 'FILTER_TASKS', payload: { searchTerm } };
 }

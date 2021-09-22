@@ -2,6 +2,7 @@ const initialState = {
   tasks: [],
   isLoading: false,
   error: null,
+  searchTerm: '',
 }
 
 export default function tasksReducer(state = initialState, action) {
@@ -26,6 +27,9 @@ export default function tasksReducer(state = initialState, action) {
       const taskIndex = newTasks.indexOf(task);
       newTasks[taskIndex] = action.payload.task;
       return { ...state, tasks: newTasks };
+    }
+    case 'FILTER_TASKS': {
+      return { ...state, searchTerm: action.payload.searchTerm };
     }
     default: {
       return state;
