@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { TASK_STATUSES } from '../constants';
 import TaskList from './TaskList';
 
 class TasksPage extends Component {
@@ -47,10 +46,15 @@ class TasksPage extends Component {
 
   renderTaskLists() {
     const { tasks } = this.props;
+    const onChangeStatus = this.onChangeStatus;
 
-    return TASK_STATUSES.map(status => {
-      const statusTasks = tasks.filter(task => task.status === status);
-      return <TaskList key={status} status={status} tasks={statusTasks} onChangeStatus={this.onChangeStatus} />
+    return Object.keys(tasks).map(status => {
+      const statusTasks = tasks[status];
+      return <TaskList
+               key={status}
+               status={status}
+               tasks={statusTasks}
+               onChangeStatus={onChangeStatus} />;
     });
   }
 
