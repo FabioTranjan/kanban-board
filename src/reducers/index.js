@@ -1,21 +1,52 @@
-const initialState = {
-  tasks: [],
+const initialTasksState = {
   isLoading: false,
   error: null,
+};
+
+const initialProjectsState = {
+  items: [],
+  isLoading: false,
+  error: null,
+};
+
+const initialPageState = {
+  currentProjectId: null,
   searchTerm: '',
+};
+
+export function pageReducer(state = initialPageState, action) {
+  switch (action.type) {
+    case 'SET_CURRENT_PROJECT_ID': {
+      return { ...state, currentProjectId: action.payload.id };
+    }
+    case 'FILTER_TASKS': {
+      return { ...state, searchTerm: action.searchTerm };
+    }
+    default: {
+      return state;
+    }
+  };
 }
 
-export default function tasksReducer(state = initialState, action) {
+export function projectsReducer(state = initialProjectsState, action) {
   switch (action.type) {
-    case 'FETCH_TASKS_STARTED': {
+    case 'FETCH_PROJECTS_STARTED': {
       return { ...state, isLoading: true };
     }
-    case 'FETCH_TASKS_SUCEEDED': {
-      return { ...state, isLoading: false, tasks: action.payload.tasks };
+    case 'FETCH_PROJECTS_SUCEEDED': {
+      return { ...state, isLoading: false, items: action.payload.projects };
     }
-    case 'FETCH_TASKS_FAILED': {
+    case 'FETCH_PROJECTS_FAILED': {
       return { ...state, isLoading: false, error: action.payload.error };
     }
+    default: {
+      return state;
+    }
+  }
+}
+
+export function tasksReducer(state = initialTasksState, action) {
+  switch (action.type) {
     case 'CREATE_TASK_SUCEEDED': {
       const newTasks = [ ...state.tasks, action.payload.task ];
       return { ...state, tasks: newTasks };

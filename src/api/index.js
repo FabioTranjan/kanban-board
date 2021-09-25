@@ -9,6 +9,10 @@ const client = axios.create({
   }
 });
 
+export function fetchProjectsRequest() {
+  return client.get('/projects?_embed=tasks');
+}
+
 export function fetchTasksRequest() {
   return client.get('/tasks');
 }

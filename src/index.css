@@ -145,3 +145,14 @@ hr {
   border-color: #ebcccc;
   color: #a94442;
 }
+
+.project-item {
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-menu {
+  padding: 5px;
+}
