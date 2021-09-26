@@ -40,11 +40,18 @@ export function createTaskSuceeded(task) {
   };
 }
 
-export function createTask({ title, description, status = "Unstarted" }) {
+export function createTask({
+  title,
+  description,
+  projectId,
+  status = "Unstarted",
+}) {
   return (dispatch) => {
-    createTaskRequest({ title, description, status }).then((resp) => {
-      dispatch(createTaskSuceeded(resp.data));
-    });
+    createTaskRequest({ title, description, status, projectId }).then(
+      (resp) => {
+        dispatch(createTaskSuceeded(resp.data));
+      }
+    );
   };
 }
 
@@ -55,9 +62,12 @@ export function editTaskSuceeded(task) {
   };
 }
 
-export function editTask({ id, status }) {
+export function editTask({ id, projectId, status }) {
   return (dispatch, getState) => {
-    const task = getState().tasks.tasks.find((task) => task.id === id);
+    const project = getState().projects.items.find(
+      (project) => project.id === projectId
+    );
+    const task = project.tasks.find((task) => task.id === id);
     const updatedTask = { ...task, status };
 
     editTaskRequest(id, updatedTask).then((resp) => {

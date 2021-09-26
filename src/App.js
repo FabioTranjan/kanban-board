@@ -19,11 +19,13 @@ class App extends Component {
   }
 
   onCreateTask = ({ title, description }) => {
-    this.props.dispatch(createTask({ title, description }));
+    const projectId = this.props.currentProjectId;
+    this.props.dispatch(createTask({ title, description, projectId }));
   };
 
   onChangeStatus = ({ id, status }) => {
-    this.props.dispatch(editTask({ id, status }));
+    const projectId = this.props.currentProjectId;
+    this.props.dispatch(editTask({ id, projectId, status }));
   };
 
   onSearch = (searchTerm) => {
@@ -60,6 +62,7 @@ function mapStateToProps(state) {
   const { isLoading, error, items } = state.projects;
 
   return {
+    currentProjectId: state.page.currentProjectId,
     tasks: getGroupedAndFilteredTasks(state),
     projects: items,
     isLoading,
