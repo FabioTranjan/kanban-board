@@ -81,13 +81,11 @@ export function editTaskSuceeded(task) {
   };
 }
 
-export function editTask({ id, projectId, status }) {
+export function editTask({ id, status }) {
   return (dispatch, getState) => {
-    const project = getState().projects.items.find(
-      (project) => project.id === projectId
-    );
-    const task = project.tasks.find((task) => task.id === id);
+    const task = getState().tasks.items[id];
     const updatedTask = { ...task, status };
+    console.log(task, updatedTask);
 
     editTaskRequest(id, updatedTask).then((resp) => {
       dispatch(editTaskSuceeded(resp.data));

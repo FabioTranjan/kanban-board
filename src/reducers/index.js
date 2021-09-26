@@ -53,40 +53,13 @@ export function projectsReducer(state = initialProjectsState, action) {
     }
     case "CREATE_TASK_SUCEEDED": {
       const { task } = action.payload;
-      const projectIndex = state.items.findIndex(
-        (project) => project.id === task.projectId
-      );
+      const project = state.items[task.projectId];
 
-      const newProjects = [...state.items];
-      const newProject = newProjects[projectIndex];
+      const newProjects = { ...state.items };
+      const newTasks = [...project.tasks, task.id];
+      newProjects[task.projectId] = { ...project, tasks: newTasks };
 
-      newProjects[projectIndex] = {
-        ...newProject,
-        tasks: newProject.tasks.concat(task),
-      };
-
-      return {
-        ...state,
-        items: newProjects,
-      };
-    }
-    case "EDIT_TASK_SUCEEDED": {
-      const { task } = action.payload;
-      const projectIndex = state.items.findIndex(
-        (project) => project.id === task.projectId
-      );
-
-      const newProjects = [...state.items];
-      const project = newProjects[projectIndex];
-      const newTasks = [...project.tasks];
-      const taskIndex = newTasks.findIndex((t) => t.id === task.id);
-      newTasks[taskIndex] = task;
-      newProjects[projectIndex].tasks = newTasks;
-
-      return {
-        ...state,
-        items: newProjects,
-      };
+      return { ...state, items: newProjects };
     }
     default: {
       return state;
@@ -96,6 +69,29 @@ export function projectsReducer(state = initialProjectsState, action) {
 
 export function tasksReducer(state = initialTasksState, action) {
   switch (action.type) {
+    case "CREATE_TASK_SUCEEDED": {
+      const { task } = action.payload;
+      const nextTasks = {
+        ...state.items,
+        [task.id]: task,
+      };
+
+      return {
+        ...state,
+        items: nextTasks,
+      };
+    }
+    case "EDIT_TASK_SUCEEDED": {
+      const { task } = action.payload;
+
+      const newTasks = { ...state.items };
+      newTasks[task.id] = task;
+
+      return {
+        ...state,
+        items: newTasks,
+      };
+    }
     case "RECEIVE_ENTITIES": {
       const { entities } = action.payload;
       if (entities && entities.tasks) {

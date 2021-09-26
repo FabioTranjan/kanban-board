@@ -23,8 +23,7 @@ class App extends Component {
   };
 
   onChangeStatus = ({ id, status }) => {
-    const projectId = this.props.currentProjectId;
-    this.props.dispatch(editTask({ id, projectId, status }));
+    this.props.dispatch(editTask({ id, status }));
   };
 
   onSearch = (searchTerm) => {
