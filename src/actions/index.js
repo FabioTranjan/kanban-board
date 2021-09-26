@@ -13,7 +13,7 @@ const projectSchema = new schema.Entity("projects", {
 
 function receiveEntities(entities) {
   return {
-    type: 'RECEIVE_ENTITIES',
+    type: "RECEIVE_ENTITIES",
     payload: entities,
   };
 }
@@ -85,7 +85,6 @@ export function editTask({ id, status }) {
   return (dispatch, getState) => {
     const task = getState().tasks.items[id];
     const updatedTask = { ...task, status };
-    console.log(task, updatedTask);
 
     editTaskRequest(id, updatedTask).then((resp) => {
       dispatch(editTaskSuceeded(resp.data));

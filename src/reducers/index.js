@@ -21,7 +21,7 @@ export function pageReducer(state = initialPageState, action) {
       return { ...state, currentProjectId: action.payload.id };
     }
     case "FILTER_TASKS": {
-      return { ...state, searchTerm: action.searchTerm };
+      return { ...state, searchTerm: action.payload.searchTerm };
     }
     default: {
       return state;
@@ -112,9 +112,6 @@ export function tasksReducer(state = initialTasksState, action) {
         return task;
       });
       return { ...state, tasks: nextTasks };
-    }
-    case "FILTER_TASKS": {
-      return { ...state, searchTerm: action.payload.searchTerm };
     }
     default: {
       return state;
