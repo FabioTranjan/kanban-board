@@ -1,9 +1,22 @@
+import { normalize, schema } from "normalizr";
 import {
   createTaskRequest,
   fetchTasksRequest,
   editTaskRequest,
   fetchProjectsRequest,
 } from "../api";
+
+const taskSchema = new schema.Entity("tasks");
+const projectSchema = new schema.Entity("projects", {
+  tasks: [taskSchema],
+});
+
+function receiveEntities(entities) {
+  return {
+    type: 'RECEIVE_ENTITIES',
+    payload: entities,
+  };
+}
 
 export function fetchProjectsStarted(boards) {
   return { type: "FETCH_PROJECTS_STARTED", payload: { boards } };
@@ -24,7 +37,13 @@ export function fetchProjects() {
     return fetchProjectsRequest()
       .then((resp) => {
         const projects = resp.data;
-        dispatch(fetchProjectsSucceeded(projects));
+        const normalizedData = normalize(projects, [projectSchema]);
+        dispatch(receiveEntities(normalizedData));
+
+        if (!getState().page.currentProjectId) {
+          const defaultProjectId = projects[0].id;
+          dispatch(setCurrentProjectId(defaultProjectId));
+        }
       })
       .catch((err) => {
         console.log(err);

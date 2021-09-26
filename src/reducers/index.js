@@ -1,10 +1,11 @@
 const initialTasksState = {
+  items: {},
   isLoading: false,
   error: null,
 };
 
 const initialProjectsState = {
-  items: [],
+  items: {},
   isLoading: false,
   error: null,
 };
@@ -30,6 +31,17 @@ export function pageReducer(state = initialPageState, action) {
 
 export function projectsReducer(state = initialProjectsState, action) {
   switch (action.type) {
+    case "RECEIVE_ENTITIES": {
+      const { entities } = action.payload;
+      if (entities && entities.projects) {
+        return {
+          ...state,
+          isLoading: false,
+          items: entities.projects,
+        };
+      }
+      return state;
+    }
     case "FETCH_PROJECTS_STARTED": {
       return { ...state, isLoading: true };
     }
@@ -84,6 +96,27 @@ export function projectsReducer(state = initialProjectsState, action) {
 
 export function tasksReducer(state = initialTasksState, action) {
   switch (action.type) {
+    case "RECEIVE_ENTITIES": {
+      const { entities } = action.payload;
+      if (entities && entities.tasks) {
+        return {
+          ...state,
+          isLoading: false,
+          items: entities.tasks,
+        };
+      }
+      return state;
+    }
+    case "TIMER_INCREMENT": {
+      const nextTasks = Object.keys(state.items).map((taskId) => {
+        const task = state.items[taskId];
+        if (task.id === action.payload.taskId) {
+          return { ...task, timer: task.timer + 1 };
+        }
+        return task;
+      });
+      return { ...state, tasks: nextTasks };
+    }
     case "FILTER_TASKS": {
       return { ...state, searchTerm: action.payload.searchTerm };
     }

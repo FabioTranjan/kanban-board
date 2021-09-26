@@ -10,12 +10,11 @@ import {
 import Header from "./components/Header";
 import TasksPage from "./components/TasksPage";
 import FlashMessage from "./components/FlashMessage";
-import { getGroupedAndFilteredTasks } from "./selectors";
+import { getGroupedAndFilteredTasks, getProjects } from "./selectors";
 
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(fetchProjects());
-    this.props.dispatch(setCurrentProjectId(1));
   }
 
   onCreateTask = ({ title, description }) => {
@@ -59,12 +58,12 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  const { isLoading, error, items } = state.projects;
+  const { isLoading, error } = state.projects;
 
   return {
     currentProjectId: state.page.currentProjectId,
     tasks: getGroupedAndFilteredTasks(state),
-    projects: items,
+    projects: getProjects(state),
     isLoading,
     error,
   };

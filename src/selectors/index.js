@@ -1,18 +1,21 @@
 import { createSelector } from "reselect";
 import { TASK_STATUSES } from "../constants";
 
-const getSearchTerm = (state) => state.page.searchTerm;
+export const getProjects = (state) => {
+  return Object.keys(state.projects.items).map((id) => {
+    return state.projects.items[id];
+  });
+};
 
-const getTasksByProjectId = (state) => {
-  if (!state.page.currentProjectId) {
-    return [];
-  }
+export const getSearchTerm = (state) => state.page.searchTerm;
 
-  const currentProject = state.projects.items.find(
-    (project) => project.id === state.page.currentProjectId
-  );
+export const getTasksByProjectId = (state) => {
+  const { currentProjectId } = state.page;
 
-  return currentProject.tasks;
+  if (!currentProjectId || !state.projects.items[currentProjectId]) return [];
+
+  const taskIds = state.projects.items[currentProjectId].tasks;
+  return taskIds.map((id) => state.tasks.items[id]);
 };
 
 export const getFilteredTasks = createSelector(
