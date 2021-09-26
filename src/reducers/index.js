@@ -69,18 +69,7 @@ export function projectsReducer(state = initialProjectsState, action) {
 
 export function tasksReducer(state = initialTasksState, action) {
   switch (action.type) {
-    case "CREATE_TASK_SUCEEDED": {
-      const { task } = action.payload;
-      const nextTasks = {
-        ...state.items,
-        [task.id]: task,
-      };
-
-      return {
-        ...state,
-        items: nextTasks,
-      };
-    }
+    case "CREATE_TASK_SUCEEDED":
     case "EDIT_TASK_SUCEEDED": {
       const { task } = action.payload;
 
