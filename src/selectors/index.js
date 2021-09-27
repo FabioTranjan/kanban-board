@@ -1,11 +1,14 @@
 import { createSelector } from "reselect";
 import { TASK_STATUSES } from "../constants";
 
-export const getProjects = (state) => {
-  return Object.keys(state.projects.items).map((id) => {
-    return state.projects.items[id];
-  });
-};
+export const getProjects = createSelector(
+  [(state) => state.projects],
+  (projects) => {
+    return Object.keys(projects.items).map((id) => {
+      return projects.items[id];
+    });
+  }
+);
 
 export const getSearchTerm = (state) => state.page.searchTerm;
 
